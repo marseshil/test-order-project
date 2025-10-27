@@ -1,16 +1,28 @@
 import os
+import time
 from fastapi import FastAPI, HTTPException, Depends
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Float, Date
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship, Session
 from pydantic import BaseModel
 from datetime import date
+from sqlalchemy.exc import OperationalError
 
 DATABASE_URL = os.getenv(
     "DATABASE_URL", "postgresql+psycopg2://myuser:mypassword@localhost:5432/mydb"
 )
 
-engine = create_engine(DATABASE_URL)
+while True:
+    try:
+        engine = create_engine(DATABASE_URL)
+        with engine.connect() as conn:
+            print("Connected to Postgres")
+            break
+    except OperationalError:
+        print("Postgres not ready, retrying in 1 second...")
+        time.sleep(1)
+
+# engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 

@@ -1,46 +1,46 @@
-create table categoryTree (
-	ID SERIAL PRIMARY KEY,
-	title varchar(2000) not null,
-	parentId int4 null,
-	CONSTRAINT categoryTree_id_fkey FOREIGN KEY (parentId) REFERENCES categoryTree(id)
-);
---drop table categoryTree;
+-- create table IF NOT EXISTS categoryTree (
+-- 	ID SERIAL PRIMARY KEY,
+-- 	title varchar(2000) not null,
+-- 	parentId int4 null,
+-- 	CONSTRAINT categoryTree_id_fkey FOREIGN KEY (parentId) REFERENCES categoryTree(id)
+-- );
+-- --drop table categoryTree;
 
-create table nomenclature (
-	ID SERIAL PRIMARY KEY,
-	title varchar(2000) not null,
-	quantity int not null default 0,
-	price NUMERIC(10, 2) null,
-	categoryId int4 not null,
-	CONSTRAINT nomenclature_categoryId_fkey FOREIGN KEY (categoryId) REFERENCES categoryTree(id);
-);
---drop table nomenclature;
+-- create table IF NOT EXISTS nomenclature (
+-- 	ID SERIAL PRIMARY KEY,
+-- 	title varchar(2000) not null,
+-- 	quantity int not null default 0,
+-- 	price NUMERIC(10, 2) null,
+-- 	categoryId int4 not null,
+-- 	CONSTRAINT nomenclature_categoryId_fkey FOREIGN KEY (categoryId) REFERENCES categoryTree(id)
+-- );
+-- --drop table nomenclature;
 
-create table clients (
-	ID SERIAL PRIMARY KEY,
-	"name" varchar(1000) not null,
-	adress text null
-);
---drop table clients;
+-- create table IF NOT EXISTS clients (
+-- 	ID SERIAL PRIMARY KEY,
+-- 	"name" varchar(1000) not null,
+-- 	adress text null
+-- );
+-- --drop table clients;
 
-create table orders (
-	ID SERIAL PRIMARY KEY,
-	clientId int4 not null,
-	orderDate TIMESTAMP NOT NULL DEFAULT NOW()
-	CONSTRAINT orders_clientId_fkey FOREIGN KEY (clientId) REFERENCES clients(id)
-);
---drop table orders;
+-- create table IF NOT EXISTS orders (
+-- 	ID SERIAL PRIMARY KEY,
+-- 	clientId int4 not null,
+-- 	orderDate TIMESTAMP NOT NULL DEFAULT NOW()
+-- 	CONSTRAINT orders_clientId_fkey FOREIGN KEY (clientId) REFERENCES clients(id)
+-- );
+-- --drop table orders;
 
-create table orderNomenclatures (
-	ID SERIAL PRIMARY KEY,
-	orderId int4 not null,
-	nomenclatureId int4 not null,
-	quantity int null default 0,
-	price NUMERIC(10, 2) null,
-	CONSTRAINT orderNomenclatures_orderId_fkey FOREIGN KEY (orderId) REFERENCES orders(id),
-	CONSTRAINT orderNomenclatures_nomenclatureId_fkey FOREIGN KEY (nomenclatureId) REFERENCES nomenclature(id)
-);
---drop table orderNomenclatures;
+-- create table IF NOT EXISTS orderNomenclatures (
+-- 	ID SERIAL PRIMARY KEY,
+-- 	orderId int4 not null,
+-- 	nomenclatureId int4 not null,
+-- 	quantity int null default 0,
+-- 	price NUMERIC(10, 2) null,
+-- 	CONSTRAINT orderNomenclatures_orderId_fkey FOREIGN KEY (orderId) REFERENCES orders(id),
+-- 	CONSTRAINT orderNomenclatures_nomenclatureId_fkey FOREIGN KEY (nomenclatureId) REFERENCES nomenclature(id)
+-- );
+-- --drop table orderNomenclatures;
 
 
 -- ЗАПОЛНЕНИЕ ТАБЛИЦ ТЕСТОВЫМИ ДАННЫМИ
