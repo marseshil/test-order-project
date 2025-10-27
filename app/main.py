@@ -12,36 +12,18 @@ DATABASE_URL = os.getenv(
     "DATABASE_URL", "postgresql+psycopg2://myuser:mypassword@localhost:5432/mydb"
 )
 
-while True:
-    try:
-        engine = create_engine(DATABASE_URL)
-        with engine.connect() as conn:
-            print("Connected to Postgres")
-            break
-    except OperationalError:
-        print("Postgres not ready, retrying in 1 second...")
-        time.sleep(1)
-
-# engine = create_engine(DATABASE_URL)
+engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 app = FastAPI(title="Order Service")
 
-class Client(Base):
-    __tablename__ = "clients"
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String)
-    adress = Column(String)
-
-
-class Order(Base):
-    __tablename__ = "orders"
-    id = Column(Integer, primary_key=True, index=True)
-    clientid = Column(Integer, ForeignKey("clients.id"))
-    orderDate = Column(Date, default=date.today)
-    client = relationship("Client")
-
+class CategoryTree(Base):
+    __tablename__ = "categorytree"
+    ID = Column(Integer, primary_key=True)
+    title = Column(String(2000), nullable=False)
+    parentId = Column(Integer, ForeignKey("categorytree.ID"), nullable=True)
+    children = relationship("categorytree", remote_side=[ID])
 
 class Nomenclature(Base):
     __tablename__ = "nomenclature"
@@ -51,6 +33,18 @@ class Nomenclature(Base):
     price = Column(Float)
     categoryid = Column(Integer)
 
+class Client(Base):
+    __tablename__ = "clients"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    adress = Column(String)
+
+class Order(Base):
+    __tablename__ = "orders"
+    id = Column(Integer, primary_key=True, index=True)
+    clientid = Column(Integer, ForeignKey("clients.id"))
+    orderDate = Column(Date, default=date.today)
+    client = relationship("Client")
 
 class OrderNomenclature(Base):
     __tablename__ = "ordernomenclatures"
