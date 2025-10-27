@@ -5,6 +5,7 @@ services:
     image: postgres:16
     container_name: test_order_db
     restart: always
+    # TODO: move credentials to env file
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: secret

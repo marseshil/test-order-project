@@ -1,10 +1,10 @@
+import os
 from fastapi import FastAPI, HTTPException, Depends
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Float, Date
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship, Session
 from pydantic import BaseModel
 from datetime import date
-import os
 
 DATABASE_URL = os.getenv(
     "DATABASE_URL", "postgresql+psycopg2://myuser:mypassword@localhost:5432/mydb"
