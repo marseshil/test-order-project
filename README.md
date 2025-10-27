@@ -22,11 +22,13 @@
   ```bash
   git clone https://github.com/<your_username>/TEST-ORDER-PROJECT.git
   cd TEST-ORDER-PROJECT
+  ```
 
 2. **Собрать и запустить контейнеры**
 
   ```bash
   docker compose up --build
+  ```
 
 3. **После сборки:**
 
@@ -44,3 +46,4 @@
   ```bash
   pip install -r requirements.txt
   uvicorn app.main:app --reload
+  ```
