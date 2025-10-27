@@ -17,27 +17,30 @@
 
 # Запуск проекта в Docker
 
-1. Клонировать репозиторий
-  bash
-    git clone https://github.com/<your_username>/TEST-ORDER-PROJECT.git
-    cd TEST-ORDER-PROJECT
+1. **Клонировать репозиторий**
 
-2. Собрать и запустить контейнеры
-  bash
-    docker compose up --build
+  ```bash
+  git clone https://github.com/<your_username>/TEST-ORDER-PROJECT.git
+  cd TEST-ORDER-PROJECT
 
-3. После сборки:
+2. **Собрать и запустить контейнеры**
+
+  ```bash
+  docker compose up --build
+
+3. **После сборки:**
 
   База данных создаётся автоматически.
 
   Скрипт init.sql выполняется при первом запуске.
 
   Приложение доступно по адресу:
-    http://localhost:8000
+  http://localhost:8000
 
 # Локальный запуск без Docker (опционально)
 
-  Если хочешь запустить вручную:
+  **Если хочешь запустить вручную:**
 
+  ```bash
   pip install -r requirements.txt
   uvicorn app.main:app --reload
